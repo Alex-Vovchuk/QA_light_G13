@@ -4,3 +4,7 @@ def my_super_cool_function():
 
 i_need_conflict = True
 
+
+def another_func():
+    pass
+
