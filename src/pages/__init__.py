@@ -8,7 +8,7 @@ class Page(object):
     header_logo = '//a[@href="https://demoqa.com"]'
 
     def __init__(self):
-        self.browser = Browser(BASE_BROWSER)
+        self.browser = Browser()
 
     def open(self):
         self.browser.driver.get(BASE_URL + self.page_url)

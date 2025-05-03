@@ -1,12 +1,12 @@
 import pytest
 
-from src import Browser
+from src.browser import Browser
 from src.pages.elements_pages.text_box_page import TextBoxPage
 
 
 @pytest.fixture(scope="session")
 def browser():
-    return Browser('chrome')
+    return Browser()
 
 
 @pytest.fixture(scope="session", autouse=True)

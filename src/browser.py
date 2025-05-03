@@ -5,7 +5,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 
-from config import BASE_URL, BASE_TIMEOUT
+from config import BASE_URL, BASE_TIMEOUT, BASE_BROWSER
 
 
 class Browser:
@@ -15,17 +15,18 @@ class Browser:
     actions = None
 
     @classmethod
-    def __init__(cls, browser_name, headless=False):
-        cls.browser_name = browser_name
-        cls.headless = headless
-        if headless:
-            cls.options.add_argument("--headless")
-        if cls.browser_name == 'chrome':
-            cls.driver = webdriver.Chrome(options=cls.options)
-        elif cls.browser_name == 'firefox':
-            cls.driver = webdriver.Firefox(options=cls.options)
-        if cls.driver:
-            cls.actions = ActionChains(cls.driver)
+    def __init__(cls, browser_name=BASE_BROWSER, headless=False):
+        if not cls.driver:
+            cls.browser_name = browser_name
+            cls.headless = headless
+            if headless:
+                cls.options.add_argument("--headless")
+            if cls.browser_name == 'chrome':
+                cls.driver = webdriver.Chrome(options=cls.options)
+            elif cls.browser_name == 'firefox':
+                cls.driver = webdriver.Firefox(options=cls.options)
+            if cls.driver:
+                cls.actions = ActionChains(cls.driver)
 
     def go_to_main_page(self):
         if self.driver.current_url != BASE_URL:
@@ -36,7 +37,7 @@ class Browser:
 
     def scroll_to_element(self, locator):
         element = self.get_element(locator)
-        self.actions.scroll_to_element(element)
+        self.driver.execute_script("arguments[0].scrollIntoView(); window.scrollBy(0, arguments[1]);", element, 100)
 
     def click(self, locator):
         element = self.get_element(locator)
