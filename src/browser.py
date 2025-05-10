@@ -48,3 +48,30 @@ class Browser:
     def wait_for_clickable(self, locator, by_=By.XPATH, timeout=BASE_TIMEOUT):
         wait = WebDriverWait(self.driver, timeout)
         wait.until(EC.element_to_be_clickable((by_,  locator)))
+
+    def wait_for_visible(self, locator, by_=By.XPATH, timeout=BASE_TIMEOUT):
+        wait = WebDriverWait(self.driver, timeout)
+        wait.until(EC.visibility_of_element_located((by_,  locator)))
+
+    def wait_for_present(self, locator, by_=By.XPATH, timeout=BASE_TIMEOUT):
+        wait = WebDriverWait(self.driver, timeout)
+        wait.until(EC.presence_of_element_located((by_,  locator)))
+
+    def refresh(self):
+        self.driver.refresh()
+
+    def go_back(self):
+        self.driver.back()
+
+    def get_all_windows(self):
+        return self.driver.window_handles
+
+    def switch_to_tab(self, tab_id):
+        self.driver.switch_to.window(tab_id)
+
+    def get_cookies(self):
+        return self.driver.get_cookies()
+
+    def delete_cookie(self):
+        return self.driver.delete_all_cookies()
+
