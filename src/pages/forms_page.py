@@ -9,3 +9,4 @@ class FormsPage(Page):
     submit_button = Element('//*[@id="submit"]')
     picture_input = Element('//*[@id="uploadPicture"]')
     state_select = SelectElement('//*[@id="state"]')
+    ncr_option = Element('//div[contains(text(),"NCR")]')

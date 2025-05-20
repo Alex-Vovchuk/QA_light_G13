@@ -35,6 +35,9 @@ class Browser:
     def get_element(self, locator, by_=By.XPATH):
         return self.driver.find_element(by_, locator)
 
+    def get_all_elements(self):
+        return self.driver.find_elements()
+
     def scroll_to_element(self, locator):
         element = self.get_element(locator)
         self.driver.execute_script("arguments[0].scrollIntoView(); window.scrollBy(0, arguments[1]);", element, 100)
@@ -52,6 +55,10 @@ class Browser:
     def wait_for_visible(self, locator, by_=By.XPATH, timeout=BASE_TIMEOUT):
         wait = WebDriverWait(self.driver, timeout)
         wait.until(EC.visibility_of_element_located((by_,  locator)))
+
+    def wait_for_invisible(self, locator, by_=By.XPATH, timeout=BASE_TIMEOUT):
+        wait = WebDriverWait(self.driver, timeout)
+        wait.until(EC.invisibility_of_element_located((by_,  locator)))
 
     def wait_for_present(self, locator, by_=By.XPATH, timeout=BASE_TIMEOUT):
         wait = WebDriverWait(self.driver, timeout)

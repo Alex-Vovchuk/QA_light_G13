@@ -5,6 +5,7 @@ from src.pages.alert_frames_windows.browser_windows_page import BrowserWindowsPa
 from src.pages.alert_frames_windows.frames_page import FramesPage
 from src.pages.elements_pages.text_box_page import TextBoxPage
 from src.pages.forms_page import FormsPage
+from src.pages.widgets.date_picker_page import DatePickerPage
 
 
 @pytest.fixture(scope="session")
@@ -36,3 +37,8 @@ def browser_windows_page():
 @pytest.fixture(scope="class")
 def forms_page():
     return FormsPage()
+
+
+@pytest.fixture(scope="class")
+def date_picker_page():
+    return DatePickerPage()

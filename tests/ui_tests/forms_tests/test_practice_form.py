@@ -28,6 +28,11 @@ class TestFrames:
         forms_page.open()
         forms_page.picture_input.upload_file(generate_image())
 
+    # def test_example(self, forms_page):
+    #     forms_page.open()
+    #     forms_page.state_select.click_element()
+    #     forms_page.ncr_option.click_element()
+
 
 def generate_image():
     image = Image.new('RGB', (100, 100), color='red')
