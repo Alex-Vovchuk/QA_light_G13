@@ -1,3 +1,6 @@
+import inspect
+
+import allure
 import pytest
 
 from src.browser import Browser
@@ -42,3 +45,21 @@ def forms_page():
 @pytest.fixture(scope="class")
 def date_picker_page():
     return DatePickerPage()
+
+
+@pytest.fixture(autouse=True, scope='function')
+def report_failure(browser, close_browser, request):
+    yield
+    if is_test_failed():
+        my_png = browser.driver.get_screenshot_as_png()
+        allure.attach(my_png, "file_name", attachment_type=allure.attachment_type.PNG)
+        failed = getattr(request.node, "rep_call", None)
+        if failed and failed.failed:
+            my_png = browser.driver.get_screenshot_as_png()
+            allure.attach(my_png, "file_name", attachment_type=allure.attachment_type.PNG)
+
+
+def is_test_failed():
+    return [fi.frame.f_locals['reports'][-1] for fi in inspect.stack() if 'reports' in fi.frame.f_locals][0].failed
+
+

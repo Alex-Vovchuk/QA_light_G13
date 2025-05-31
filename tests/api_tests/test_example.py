@@ -1,3 +1,6 @@
+import allure
+import json
+import jsonschema.exceptions
 import requests
 from jsonpath_ng.ext import parse
 from jsonschema import validate
@@ -57,6 +60,14 @@ def test_get_all_items():
     user_service = UsersService()
     all_users = user_service.get_users_list()
 
-    all_users.validate_schema(get_all_users)
+    validate(all_users.json(), get_all_users)
 
 
+# def validate_schema(instance, schema):
+#     try:
+#         validate(instance, schema)
+#     except jsonschema.exceptions.ValidationError as e:
+#         allure.attach(str(e), 'FATAL ERROR', attachment_type=allure.attachment_type.TEXT)
+#         allure.attach(json.dumps(schema), 'SCHEMA', attachment_type=allure.attachment_type.JSON)
+#         allure.attach(json.dumps(instance), 'INSTANCE', attachment_type=allure.attachment_type.JSON)
+#         raise AssertionError(str(e))

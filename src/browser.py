@@ -1,4 +1,6 @@
+import allure
 from selenium import webdriver
+from selenium.common import TimeoutException, NoSuchElementException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -47,6 +49,10 @@ class Browser:
         self.scroll_to_element(locator)
         self.wait_for_clickable(locator)
         element.click()
+        # except NoSuchElementException:
+        #     png_bytes = self.driver.get_screenshot_as_png()
+        #     allure.attach(png_bytes, "file_name", attachment_type=allure.attachment_type.PNG)
+        #     raise NoSuchElementException
 
     def wait_for_clickable(self, locator, by_=By.XPATH, timeout=BASE_TIMEOUT):
         wait = WebDriverWait(self.driver, timeout)

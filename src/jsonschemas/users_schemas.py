@@ -3,7 +3,7 @@ get_all_users = {
     "type": "object",
     "properties": {
         "page": {
-            "type": "integer"
+            "type": "string"
         },
         "per_page": {
             "type": "integer"
